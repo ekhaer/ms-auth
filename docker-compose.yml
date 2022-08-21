@@ -1,0 +1,17 @@
+version: "2.2"
+services:
+  my-web:
+    build: .
+    command: npm start
+    volumes:
+      - .:/usr/app
+      - /usr/app/node_modules
+    ports:
+      - "4000:4000"
+    networks:
+      - default
+    depends_on:
+      - my-mongodb
+  my-mongodb:
+    image: mongo:5.0.2
+    restart: unless-stopped

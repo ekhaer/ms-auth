@@ -15,6 +15,7 @@ class LoginController {
             const response = await axios.post(request, data);
             if (response.data.isValid) {
                 let user = response.data;
+                // const isPasswMatch = comparePassw(user.password)
                 const isPasswMatch = comparePassw(data.password, user.password)
                 if (!isPasswMatch) {
                     res.status(401).json({ message: "Invalid Email / Password" })
