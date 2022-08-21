@@ -16,7 +16,11 @@ class Login {
     }
 
     static async update(id, data) {
-        return getDb().collection('access_token').updateOne({"user_id" : id}, { $set : {access_token : data.access_token, expired_time : data.expired_time}})
+        return getDb().collection('access_token').updateOne({"user_id" : id}, { $set : {access_token : data.access_token, refresh_token : data.refresh_token}})
+    }
+
+    static async deleteRefreshToken(id) {
+        return getDb().collection('access_token').updateOne({"user_id" : id}, { $set : {refresh_token : ""}})
     }
 }
 
