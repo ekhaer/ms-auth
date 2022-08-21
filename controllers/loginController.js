@@ -95,7 +95,6 @@ class LoginController {
     static async verify(req, res, next) {
         let data = req.body;
         //check isExist
-        console.log("dataa", data)
         try {
             const isExist = await Login.findByToken(data.access_token)
             if (!isExist) {
@@ -103,7 +102,6 @@ class LoginController {
                     name: "InvalidJWT"
                 }
             } else {
-                console.log("EXISSSTTT:::", isExist)
                 if (isExist.refresh_token !== "") {
                     const verifying = verify(data.access_token)
                     if (verifying) {
@@ -115,11 +113,6 @@ class LoginController {
                         res.status(200).json(output)
                     }
                 } else {
-                    //refresh token is expired. kindly login
-                    // res.status(401).json({ message : 'Refresh Token is Expired'})
-                    // res.status(200).json("output")
-                    
-                    // console.log("expiredd")
                     throw {
                         name: "refresh_token_expired"
                     }
